@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Users Database</title>
+    <link rel="icon" href="favicon.ico"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+    <link href='users-style-sheet.css' rel='stylesheet'>
+</head>
+<body>
+<div class="table-and-heading">
+    <h2>Users:</h2>
+    <div class="table">
+        <table>
+            <thead>
+            <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Last name</th>
+                <th scope="col">Department</th>
+                <th scope="col">Salary</th>
+                <th scope="col">Age</th>
+                <th scope="col">Email</th>
+                <th scope="col">Operations</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user: ${users}">
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.lastName}"></td>
+                    <td th:text="${user.department}"></td>
+                    <td th:text="${user.salary}"></td>
+                    <td th:text="${user.age}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td>
+                        <button th:attr="onclick=@{/admin/update-user/${user.id}}">Update</button>
+                        <button class="delete-button" th:attr="onclick=@{DELETE@{/admin/update-user/${user.id}}}">Update</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="main-button" th:attr="onclick=@{/admin/add-user}">Add</button>
+    </div>
+</div>
+</body>
+</html>

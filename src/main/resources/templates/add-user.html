@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>User Info</title>
+  <link rel="icon" href="favicon.ico"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+  <link href="users-style-sheet.css" rel="stylesheet">
+</head>
+<body>
+<div class="forms-and-heading">
+  <h2>Fill in the forms</h2>
+  <form class="forms" th:action="@{/admin/saveUser}" th:object="${user}" method="post">
+
+    <label for="username">Username: </label>
+    <input id="username" th:field="*{username}"/>
+
+    <label for="password">Password: </label>
+    <input id="password" th:field="*{password}"/>
+
+    <label for="last-name">Last name: </label>
+    <input id="last-name" th:field="*{lastName}"/>
+
+    <label for="departments">Department: </label>
+    <select id="departments">
+      <option selected disabled>Select the department</option>
+      <option value="accounting">Accounting</option>
+      <option value="sales">Sales</option>
+      <option value="information technology">IT</option>
+      <option value="human resources">HR</option>
+    </select>
+
+    <label for="salary">Salary: </label>
+    <input id="salary" th:field="*{salary}"/>
+
+    <label for="age">Age: </label>
+    <input id="age" th:field="*{age}"/>
+
+    <label for="email">Email: </label>
+    <input id="email" th:field="*{email}"/>
+
+    <input class='main-button' type="submit" value="Submit">
+  </form>
+</div>
+</body>
+</html>

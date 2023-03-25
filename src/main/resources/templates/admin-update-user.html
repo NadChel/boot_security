@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>User Info</title>
+  <link rel="icon" href="favicon.ico"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+  <link href="users-style-sheet.css" rel="stylesheet">
+</head>
+<body>
+<div class="forms-and-heading">
+  <h2>Update the user's info</h2>
+  <p>For the sake of privacy, you are only allowed to change the user's department and salary
+  If you think this user's personal info needs to be altered, please request them to do so</p>
+  <form class="forms" th:action="@{/saveUser}" th:object="${user}" method="post">
+    <label for="departments">Department: </label>
+    <select id="departments">
+      <option selected disabled>Select the department</option>
+      <option value="accounting">Accounting</option>
+      <option value="sales">Sales</option>
+      <option value="information technology">IT</option>
+      <option value="human resources">HR</option>
+    </select>
+
+    <label for="salary">Salary: </label>
+    <input id="salary" th:field="*{salary}"/>
+
+    <input class="main-button" type="submit" value="Submit">
+  </form>
+</div>
+</body>
+</html>
