@@ -40,14 +40,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder())
                 .usersByUsernameQuery(
                         "SELECT username, password, enabled FROM users_db.users where username = ?")
-                .rolePrefix("ROLE_")
                 .authoritiesByUsernameQuery(
                         "SELECT username, role FROM users_db.roles WHERE username = ?");
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(10);
     }
 // ************************************** Изначально *****************************************
 //    @Override

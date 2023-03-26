@@ -16,9 +16,9 @@ public class MyController {
         this.service = service;
     }
 
-    @GetMapping("/user/{id}")
-    public String userInfo(Model model, @PathVariable long id) {
-        model.addAttribute("user", service.getById(id));
+    @GetMapping("/user/{username}")
+    public String userInfo(Model model, @PathVariable String username) {
+        model.addAttribute("user", service.getByUsername(username));
         return "user-info";
     }
 

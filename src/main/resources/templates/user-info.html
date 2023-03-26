@@ -3,17 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Your Details</title>
+    <link rel="icon" href="favicon.ico"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+    <link href='users-style-sheet.css' rel='stylesheet'>
+
 </head>
+<nav>
+    <a th:href="@{/logout}">Log out</a>
+</nav>
 <body>
-<ol>
-    <li th:text="Username ${user.username}"></li>
-    <li th:text="Password ${user.password}"></li>
-    <li th:text="Last name ${user.lastName}"></li>
-    <li th:text="Department ${user.department}"></li>
-    <li th:text="Salary ${user.salary}"></li>
-    <li th:text="Age ${user.age}"></li>
-    <li th:text="Email ${user.email}"></li>
+<h2>Your Details</h2>
+<ol th:object="${user}">
+    <li><span class="label">Username: </span><span th:text="*{username}"></span></li>
+    <li th:text="*{password}"></li>
+    <li th:text="*{lastName}"></li>
+    <li th:text="*{department}"></li>
+    <li th:text="*{salary}"></li>
+    <li th:text="*{age}"></li>
+    <li th:text="*{email}"></li>
 </ol>
 <button th:attr="onclick=@{/update-user/${user.id}}">Edit</button>
 </body>
 </html>
+
+<!--<ol>-->
+<!--    <li th:text="Username ${user.username}"></li>-->
+<!--    <li th:text="Password ${user.password}"></li>-->
+<!--    <li th:text="Last name ${user.lastName}"></li>-->
+<!--    <li th:text="Department ${user.department}"></li>-->
+<!--    <li th:text="Salary ${user.salary}"></li>-->
+<!--    <li th:text="Age ${user.age}"></li>-->
+<!--    <li th:text="Email ${user.email}"></li>-->
+<!--</ol>-->

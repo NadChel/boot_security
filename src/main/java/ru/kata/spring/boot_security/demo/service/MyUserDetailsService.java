@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.dao.UserDao;
 import ru.kata.spring.boot_security.demo.models.User;
 
+// отсюда: https://www.baeldung.com/spring-security-authentication-with-a-database
+
 @Service
 public class MyUserDetailsService implements UserDetailsService {
     private final UserDao userDao;

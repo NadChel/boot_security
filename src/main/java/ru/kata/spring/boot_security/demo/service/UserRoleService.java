@@ -10,6 +10,8 @@ public interface UserRoleService {
 
     User getById(long id);
 
+    User getByUsername(String username);
+
     void save(User user);
 
     @Transactional

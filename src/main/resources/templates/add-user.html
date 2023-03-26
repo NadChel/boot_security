@@ -8,6 +8,9 @@
   <link href="users-style-sheet.css" rel="stylesheet">
 </head>
 <body>
+<nav>
+  <a th:href="@{/logout}">Log out</a>
+</nav>
 <div class="forms-and-heading">
   <h2>Fill in the forms</h2>
   <form class="forms" th:action="@{/admin/saveUser}" th:object="${user}" method="post">

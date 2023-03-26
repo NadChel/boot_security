@@ -8,6 +8,9 @@
     <link href='users-style-sheet.css' rel='stylesheet'>
 </head>
 <body>
+<nav>
+    <a th:href="@{/logout}">Log out</a>
+</nav>
 <div class="table-and-heading">
     <h2>Users:</h2>
     <div class="table">
@@ -33,7 +36,7 @@
                     <td th:text="${user.email}"></td>
                     <td>
                         <button th:attr="onclick=@{/admin/update-user/${user.id}}">Update</button>
-                        <button class="delete-button" th:attr="onclick=@{DELETE@{/admin/update-user/${user.id}}}">Update</button>
+                        <button class="delete-button" th:attr="onclick=@{DELETE@{/admin/delete-user/${user.id}}}">Delete</button>
                     </td>
                 </tr>
             </tbody>
