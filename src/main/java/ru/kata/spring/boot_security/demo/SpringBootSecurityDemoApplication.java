@@ -7,6 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringBootSecurityDemoApplication {
 
 	public static void main(String[] args) {
+//		String password = "mickey";
+//		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//		String hashedPassword = passwordEncoder.encode(password);
+//		System.out.println("hashedPassword: " + hashedPassword);
 		SpringApplication.run(SpringBootSecurityDemoApplication.class, args);
 	}
 
