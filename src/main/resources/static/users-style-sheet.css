@@ -1,4 +1,8 @@
-.table-and-heading, .forms-and-heading {
+nav {
+    text-align: right;
+}
+
+main {
     height: 50%;
     width: 50%;
     margin: 0 auto;
@@ -7,7 +11,7 @@
     /*border: 4px solid black;*/
 }
 
-.table, .forms {
+.content-and-buttons {
     height: auto;
     width: max-content;
     margin: 2% auto;

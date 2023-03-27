@@ -41,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usersByUsernameQuery(
                         "SELECT username, password, enabled FROM users_db.users where username = ?")
                 .authoritiesByUsernameQuery(
-                        "SELECT username, role FROM users_db.roles WHERE username = ?");
+                        "SELECT username, role FROM users_db.user_role WHERE username = ?");
     }
 
     @Bean

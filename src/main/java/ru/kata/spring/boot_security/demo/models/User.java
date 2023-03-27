@@ -32,9 +32,9 @@ public class User implements UserDetails {
     @Column
     private String email;
     @ManyToMany
-    @JoinTable(name = "authorities",
-            joinColumns = @JoinColumn(name = ""),
-            inverseJoinColumns = @JoinColumn(name = ""))
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roleList;
 
     public User() {
@@ -127,8 +127,11 @@ public class User implements UserDetails {
     public String toString() {
         return new StringJoiner(", ", User.class.getSimpleName() + "[", "]")
                 .add("id=" + id)
-                .add("name='" + username + "'")
+                .add("username='" + username + "'")
+                .add("password='" + password + "'")
                 .add("lastName='" + lastName + "'")
+                .add("department='" + department + "'")
+                .add("salary=" + salary)
                 .add("age=" + age)
                 .add("email='" + email + "'")
                 .toString();

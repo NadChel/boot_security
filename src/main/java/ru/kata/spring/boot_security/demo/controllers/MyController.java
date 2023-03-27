@@ -1,5 +1,8 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -16,16 +19,27 @@ public class MyController {
         this.service = service;
     }
 
-    @GetMapping("/user/{username}")
-    public String userInfo(Model model, @PathVariable String username) {
+    @GetMapping("/user")
+    public String userInfo(Model model, Authentication authentication) {
+        String username = getUsername(authentication);
         model.addAttribute("user", service.getByUsername(username));
         return "user-info";
     }
 
-    @GetMapping("/user/update-user/{id}")
-    public String updateYourself(Model model, @PathVariable long id) {
-        model.addAttribute("user", service.getById(id));
-        return "user-update-user";
+    @GetMapping("/user/update-info")
+    public String updateYourInfo(Model model, Authentication authentication) {
+        String username = getUsername(authentication);
+        model.addAttribute("user", service.getByUsername(username));
+        return "user-update-info";
+    }
+
+    @GetMapping("/user/update-password")
+    public String updateYourPassword(Model model, Authentication authentication) {
+        String username = getUsername(authentication);
+        model.addAttribute("user", service.getByUsername(username))
+             .addAttribute("defaultPassword",
+                        Character.toLowerCase(username.charAt(0)) + username.substring(1));
+        return "user-update-password";
     }
 
     @GetMapping("/admin")
@@ -53,11 +67,22 @@ public class MyController {
     }
 
     @PostMapping("/save-user")
-    public String saveUser(@ModelAttribute User user) {
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    public String saveUser(@ModelAttribute User user, Authentication authentication) {
+        System.out.println("logged user: " + user);
+
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(String.format("{bcrypt}%s", encodedPassword));
+        user.setPassword(encodedPassword);
         service.save(user);
-        return "redirect:/admin";
+
+        return
+                authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN")) ?
+                        "redirect:/admin" :
+                        "redirect:/user";
+    }
+
+    private String getUsername(Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        return userDetails.getUsername();
     }
 }

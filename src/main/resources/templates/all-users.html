@@ -11,9 +11,9 @@
 <nav>
     <a th:href="@{/logout}">Log out</a>
 </nav>
-<div class="table-and-heading">
+<main>
     <h2>Users:</h2>
-    <div class="table">
+    <div class="content-and-buttons">
         <table>
             <thead>
             <tr>
@@ -43,6 +43,6 @@
         </table>
         <button class="main-button" th:attr="onclick=@{/admin/add-user}">Add</button>
     </div>
-</div>
+</main>
 </body>
 </html>
