@@ -3,26 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <title>User Info</title>
-  <link rel="icon" href="favicon.ico"/>
+  <link rel="icon" href="../favicon.ico"/>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
-  <link href="users-style-sheet.css" rel="stylesheet">
+  <link href="../users-style-sheet.css" rel="stylesheet">
 </head>
 <body>
 <nav>
   <a th:href="@{/logout}">Log out</a>
 </nav>
-<div class="forms-and-heading">
+<main>
   <h2>Fill in the forms</h2>
-  <form class="forms" th:action="@{/admin/saveUser}" th:object="${user}" method="post">
+  <div class="content-and-buttons">
+  <form class="forms" th:action="@{/save-user(password=true)}" th:object="${user}" method="post">
+    <input type="hidden" th:field="*{id}">
 
     <label for="username">Username: </label>
     <input id="username" th:field="*{username}"/>
+    <br>
 
     <label for="password">Password: </label>
     <input id="password" th:field="*{password}"/>
+    <br>
 
     <label for="last-name">Last name: </label>
     <input id="last-name" th:field="*{lastName}"/>
+    <br>
 
     <label for="departments">Department: </label>
     <select id="departments">
@@ -32,18 +37,23 @@
       <option value="information technology">IT</option>
       <option value="human resources">HR</option>
     </select>
+    <br>
 
     <label for="salary">Salary: </label>
     <input id="salary" th:field="*{salary}"/>
+    <br>
 
     <label for="age">Age: </label>
     <input id="age" th:field="*{age}"/>
+    <br>
 
     <label for="email">Email: </label>
     <input id="email" th:field="*{email}"/>
+    <br>
 
     <input class='main-button' type="submit" value="Submit">
   </form>
-</div>
+  </div>
+</main>
 </body>
 </html>

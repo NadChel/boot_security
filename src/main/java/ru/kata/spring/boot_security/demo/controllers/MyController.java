@@ -3,7 +3,6 @@ package ru.kata.spring.boot_security.demo.controllers;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +14,11 @@ import ru.kata.spring.boot_security.demo.service.UserRoleService;
 public class MyController {
     private final UserRoleService service;
 
-    public MyController(UserRoleService service) {
+    private final PasswordEncoder passwordEncoder;
+
+    public MyController(UserRoleService service, PasswordEncoder passwordEncoder) {
         this.service = service;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/user")
@@ -54,35 +56,47 @@ public class MyController {
         return "add-user";
     }
 
-    @GetMapping("/admin/update-user/{id}")
-    public String updateUser(Model model, @PathVariable long id) {
-        model.addAttribute("user", service.getById(id));
+    @GetMapping("/admin/update-user")
+    public String updateUser(Model model, @RequestParam String username) {
+        model.addAttribute("user", service.getByUsername(username));
         return "admin-update-user";
     }
 
-    @DeleteMapping("/admin/deleteUser/{id}")
-    public String deleteUser(@PathVariable long id) {
-        service.deleteUserById(id);
+    @DeleteMapping("/admin/delete-user")
+    public String deleteUser(@RequestParam String username) {
+        service.deleteUserByUsername(username);
         return "redirect:/admin";
     }
 
     @PostMapping("/save-user")
-    public String saveUser(@ModelAttribute User user, Authentication authentication) {
-        System.out.println("logged user: " + user);
+    public String saveUser(@ModelAttribute User user, @RequestParam(required = false) boolean password,
+                           Authentication authentication) {
+        System.out.println("Logged user: " + user);
 
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
+        if (password) {
+            System.out.println("Encoding...");
+            encodePassword(user);
+            System.out.println("Encoding complete!");
+        }
+
         service.save(user);
 
-        return
-                authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN")) ?
-                        "redirect:/admin" :
-                        "redirect:/user";
+        return isAdmin(authentication) ?
+                "redirect:/admin" :
+                "redirect:/user";
     }
 
     private String getUsername(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         return userDetails.getUsername();
+    }
+
+    private boolean isAdmin(Authentication authentication) {
+        return authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"));
+    }
+
+    private void encodePassword(User user) {
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
     }
 }

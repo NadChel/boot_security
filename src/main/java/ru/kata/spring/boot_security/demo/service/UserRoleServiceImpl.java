@@ -43,7 +43,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     @Transactional
-    public void deleteUserById(long id) {
-        userDao.deleteById(id);
+    public void deleteUserByUsername(String username) {
+        userDao.deleteByUsername(username);
     }
 }

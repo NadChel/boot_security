@@ -35,13 +35,16 @@
                     <td th:text="${user.age}"></td>
                     <td th:text="${user.email}"></td>
                     <td>
-                        <button th:attr="onclick=@{/admin/update-user/${user.id}}">Update</button>
-                        <button class="delete-button" th:attr="onclick=@{DELETE@{/admin/delete-user/${user.id}}}">Delete</button>
+                        <a th:href="@{/admin/update-user(username=${user.username})}"><button>Update</button></a>
+                        <a th:method="DELETE" th:href="@{/admin/delete-user(username=${user.username})}"><button class="delete-button">Delete</button></a>
+
+<!--                        <button th:attr="onclick=@{/admin/update-user?username=${user.username}}">Update</button>-->
+<!--                        <button class="delete-button" th:attr="onclick=@{DELETE@{/admin/delete-user?username=${user.username}}}">Delete</button>-->
                     </td>
                 </tr>
             </tbody>
         </table>
-        <button class="main-button" th:attr="onclick=@{/admin/add-user}">Add</button>
+        <a th:href="@{/admin/add-user}"><button class="main-button">Add</button></a>
     </div>
 </main>
 </body>
