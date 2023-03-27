@@ -21,11 +21,13 @@
 
         <label for="username">Username: </label>
         <input id="username" th:field="*{username}"/>
+        <br>
 
         <input type="hidden" th:field="*{password}"/>
 
         <label for="last-name">Last name: </label>
         <input id="last-name" th:field="*{lastName}"/>
+        <br>
 
         <input type="hidden" th:field="*{department}"/>
 
@@ -33,9 +35,11 @@
 
         <label for="age">Age: </label>
         <input id="age" th:field="*{age}"/>
+        <br>
 
         <label for="email">Email: </label>
         <input id="email" th:field="*{email}"/>
+        <br>
 
         <input class="main-button" type="submit" value="Submit">
     </form>

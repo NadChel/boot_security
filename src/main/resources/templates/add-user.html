@@ -18,19 +18,19 @@
     <input type="hidden" th:field="*{id}">
 
     <label for="username">Username: </label>
-    <input id="username" th:field="*{username}"/>
+    <input id="username" th:field="*{username}" type="text" minlength="2" required/>
     <br>
 
     <label for="password">Password: </label>
-    <input id="password" th:field="*{password}"/>
+    <input id="password" th:field="*{password}" type="text" minlength="5" required/>
     <br>
 
     <label for="last-name">Last name: </label>
-    <input id="last-name" th:field="*{lastName}"/>
+    <input id="last-name" th:field="*{lastName}" type="text" minlength="2" required/>
     <br>
 
     <label for="departments">Department: </label>
-    <select id="departments">
+    <select id="departments" required>
       <option selected disabled>Select the department</option>
       <option value="accounting">Accounting</option>
       <option value="sales">Sales</option>
@@ -40,16 +40,22 @@
     <br>
 
     <label for="salary">Salary: </label>
-    <input id="salary" th:field="*{salary}"/>
+    <input id="salary" th:field="*{salary}" type="number" min="100000" required/>
     <br>
 
     <label for="age">Age: </label>
-    <input id="age" th:field="*{age}"/>
+    <input id="age" th:field="*{age}" type="number" min="18" required/>
     <br>
 
     <label for="email">Email: </label>
-    <input id="email" th:field="*{email}"/>
+    <input id="email" th:field="*{email}" type="text" pattern="[a-z._-]+@[a-z]{1,}\.[a-z]{2,3}" required/>
     <br>
+
+<!--    <input th:field="*{authorities}" type="hidden" value="USER" />-->
+<!--    -->
+<!--    <label for="admin">Admin: </label>-->
+<!--    <input id="admin" th:field="*{authorities}" type="checkbox" value="ADMIN" />-->
+<!--    <br>-->
 
     <input class='main-button' type="submit" value="Submit">
   </form>

@@ -38,9 +38,7 @@ public class MyController {
     @GetMapping("/user/update-password")
     public String updateYourPassword(Model model, Authentication authentication) {
         String username = getUsername(authentication);
-        model.addAttribute("user", service.getByUsername(username))
-             .addAttribute("defaultPassword",
-                        Character.toLowerCase(username.charAt(0)) + username.substring(1));
+        model.addAttribute("user", service.getByUsername(username));
         return "user-update-password";
     }
 
@@ -69,7 +67,8 @@ public class MyController {
     }
 
     @PostMapping("/save-user")
-    public String saveUser(@ModelAttribute User user, @RequestParam(required = false) boolean password,
+    public String saveUser(@ModelAttribute User user,
+                           @RequestParam(required = false) boolean password,
                            Authentication authentication) {
         System.out.println("Logged user: " + user);
 

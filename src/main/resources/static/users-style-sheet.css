@@ -27,6 +27,14 @@ h2 {
     text-align: center;
 }
 
+ol li span.label {
+    font-weight: bold;
+}
+
+input, select {
+    margin: 2%;
+}
+
 table {
     border: 3px solid black;
     border-collapse: collapse;
