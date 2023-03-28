@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.UserRoleService;
 
@@ -19,6 +20,13 @@ public class MyController {
     public MyController(UserRoleService service, PasswordEncoder passwordEncoder) {
         this.service = service;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    @GetMapping("/")
+    public String home(Authentication authentication) {
+        return isAdmin(authentication) ?
+                "redirect:/admin" :
+                "redirect:/user";
     }
 
     @GetMapping("/user")
@@ -50,7 +58,8 @@ public class MyController {
 
     @GetMapping("/admin/add-user")
     public String addUser(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new User())
+                .addAttribute("admin", new Role("ADMIN"));
         return "add-user";
     }
 

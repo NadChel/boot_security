@@ -5,10 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.StringJoiner;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -21,6 +18,8 @@ public class User implements UserDetails {
     private String username;
     @Column
     private String password;
+    @Column
+    private String name;
     @Column(name = "last_name")
     private String lastName;
     @Column
@@ -35,15 +34,20 @@ public class User implements UserDetails {
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roleList;
+    private Set<Role> roleList;
 
     public User() {
+        this.roleList = new HashSet<>(List.of(new Role("USER")));
     }
 
-    public User(String username, String password, String lastName, byte age, String email) {
+    public User(String username, String password, String name, String lastName,
+                String department, int salary, byte age, String email) {
         this.username = username;
         this.password = password;
+        this.name = name;
         this.lastName = lastName;
+        this.department = department;
+        this.salary = salary;
         this.age = age;
         this.email = email;
     }
@@ -72,6 +76,14 @@ public class User implements UserDetails {
 
     public void setUsername(String name) {
         this.username = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getLastName() {
@@ -119,7 +131,7 @@ public class User implements UserDetails {
         return roleList;
     }
 
-    public void setAuthorities(List<Role> roleList) {
+    public void setAuthorities(Set<Role> roleList) {
         this.roleList = roleList;
     }
 
@@ -129,6 +141,7 @@ public class User implements UserDetails {
                 .add("id=" + id)
                 .add("username='" + username + "'")
                 .add("password='" + password + "'")
+                .add("name='" + name + "'")
                 .add("lastName='" + lastName + "'")
                 .add("department='" + department + "'")
                 .add("salary=" + salary)
@@ -142,16 +155,12 @@ public class User implements UserDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id &&
-                age == user.age &&
-                Objects.equals(username, user.username) &&
-                Objects.equals(lastName, user.lastName) &&
-                Objects.equals(email, user.email);
+        return id == user.id && salary == user.salary && age == user.age && username.equals(user.username) && password.equals(user.password) && Objects.equals(name, user.name) && Objects.equals(lastName, user.lastName) && Objects.equals(department, user.department) && Objects.equals(email, user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, lastName, age, email);
+        return Objects.hash(id, username, password, name, lastName, department, salary, age, email);
     }
 
     @Override

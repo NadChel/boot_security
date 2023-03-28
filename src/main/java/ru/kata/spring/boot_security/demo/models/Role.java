@@ -3,7 +3,7 @@ package ru.kata.spring.boot_security.demo.models;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 import java.util.StringJoiner;
 
 @Entity
@@ -19,10 +19,9 @@ public class Role implements GrantedAuthority {
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> userList;
+    private Set<User> userList;
 
     public Role() {
-
     }
 
     public Role(String role) {

@@ -11,14 +11,11 @@ main {
     height: auto;
     width: 50%;
     margin: 0 auto;
-    /*border: 4px solid black;*/
 }
 
 .content-and-buttons {
-    height: auto;
     width: max-content;
-    margin: 2% auto;
-    /*border: 4px dotted gray;*/
+    margin: 0 auto;
 }
 
 h2 {
@@ -27,17 +24,22 @@ h2 {
     text-align: center;
 }
 
+ol {
+    padding-inline-start: 1.2em;
+}
+
 ol li span.label {
     font-weight: bold;
 }
 
-input, select {
-    margin: 2%;
+form, input[type="submit"] {
+    margin: 0.5em;
 }
 
 table {
     border: 3px solid black;
     border-collapse: collapse;
+    margin-bottom: 0.5em;
 }
 
 thead {
