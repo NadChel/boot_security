@@ -30,6 +30,8 @@ public class User implements UserDetails {
     private byte age;
     @Column
     private String email;
+    @Column
+    private byte enabled;
     @ManyToMany
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -164,6 +166,11 @@ public class User implements UserDetails {
     }
 
     @Override
+    public boolean isEnabled() {
+        return enabled == 1;
+    }
+
+    @Override
     public boolean isAccountNonExpired() {
         return false;
     }
@@ -175,11 +182,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
         return false;
     }
 }

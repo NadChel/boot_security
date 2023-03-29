@@ -13,8 +13,8 @@ public class Role implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private long id;
-    @Column
-    private String role;
+    @Column(name = "role")
+    private String authority;
     @ManyToMany
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "role_id"),
@@ -24,28 +24,24 @@ public class Role implements GrantedAuthority {
     public Role() {
     }
 
-    public Role(String role) {
-        this.role = role;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+    public Role(String authority) {
+        this.authority = authority;
     }
 
     @Override
     public String getAuthority() {
-        return this.getRole();
+        return authority;
+    }
+
+    public void setAuthority(String role) {
+        this.authority = role;
     }
 
     @Override
     public String toString() {
         return new StringJoiner(", ", Role.class.getSimpleName() + "[", "]")
                 .add("id=" + id)
-                .add("role='" + role + "'")
+                .add("role='" + authority + "'")
                 .toString();
     }
 }

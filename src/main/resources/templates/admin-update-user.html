@@ -29,7 +29,7 @@
 
         <input type="hidden" th:field="*{lastName}">
 
-        <form>
+        <fieldset>
             <label for="departments">Department: </label>
             <select id="departments">
                 <option selected disabled>Select the department</option>
@@ -38,12 +38,12 @@
                 <option value="information technology">IT</option>
                 <option value="human resources">HR</option>
             </select>
-        </form>
+        </fieldset>
 
-        <form>
+        <fieldset>
             <label for="salary">Salary: </label>
             <input id="salary" th:field="*{salary}"/>
-        </form>
+        </fieldset>
 
         <input type="hidden" th:field="*{age}">
 

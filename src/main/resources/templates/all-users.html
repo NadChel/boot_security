@@ -25,6 +25,7 @@
                 <th scope="col">Age</th>
                 <th scope="col">Email</th>
                 <th scope="col">Role(s)</th>
+                <th scope="col">Enabled</th>
                 <th scope="col">Operations</th>
             </tr>
             </thead>
@@ -38,14 +39,13 @@
                     <td th:text="${user.age}"></td>
                     <td th:text="${user.email}"></td>
                     <td th:each="role : ${user.authorities}">
-                        <span th:unless="${role.authority} == 'USER'" th:text="U"></span>
+                        <span th:if="${role.authority} == 'USER'" th:text="U"></span>
                         <span th:if="${role.authority} == 'ADMIN'" th:text="A"></span>
                     </td>
+                    <td th:text="${user.isEnabled() ? '+' : '-'}"></td>
                     <td>
-                        <a th:href="@{/admin/update-user(username=${user.username})}"><button>Update</button></a>
+                        <a th:href="${user.username == loggedUser ? '/user/update-info' : '/admin/update-user?username=' + user.username}"><button>Update</button></a>
                         <a th:method="DELETE" th:href="@{/admin/delete-user(username=${user.username})}"><button class="delete-button">Delete</button></a>
-<!--                        <button th:attr="onclick=@{/admin/update-user?username=${user.username}}">Update</button>-->
-<!--                        <button class="delete-button" th:attr="onclick=@{DELETE@{/admin/delete-user?username=${user.username}}}">Delete</button>-->
                     </td>
                 </tr>
             </tbody>

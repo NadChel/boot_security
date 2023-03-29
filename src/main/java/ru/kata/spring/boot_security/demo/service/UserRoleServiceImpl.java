@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.dao.RoleDao;
 import ru.kata.spring.boot_security.demo.dao.UserDao;
+import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public List<User> findAll() {
+    public List<User> getAll() {
         return userDao.findAll();
     }
 
@@ -45,5 +46,10 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Transactional
     public void deleteUserByUsername(String username) {
         userDao.deleteByUsername(username);
+    }
+
+    @Override
+    public Role getRoleByName(String name) {
+        return roleDao.findByAuthority(name);
     }
 }

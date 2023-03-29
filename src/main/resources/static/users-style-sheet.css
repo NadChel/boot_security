@@ -8,8 +8,7 @@ nav {
 }
 
 main {
-    height: auto;
-    width: 50%;
+    width: 60%;
     margin: 0 auto;
 }
 
@@ -32,8 +31,13 @@ ol li span.label {
     font-weight: bold;
 }
 
-form, input[type="submit"] {
-    margin: 0.5em;
+fieldset, input[type="submit"] {
+    margin: 0.7em;
+}
+
+fieldset {
+    padding: 0;
+    border: 0;
 }
 
 table {
@@ -48,6 +52,10 @@ thead {
 
 tr {
     border-top: 1px solid black;
+}
+
+th, td {
+    text-align: center;
 }
 
 th {

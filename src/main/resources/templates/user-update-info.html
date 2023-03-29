@@ -19,36 +19,36 @@
         <form th:action="@{/save-user}" th:object="${user}" method="post">
             <input type="hidden" th:field="*{id}"/>
 
-            <form>
+            <fieldset>
                 <label for="username">Username: </label>
                 <input id="username" th:field="*{username}"/>
-            </form>
+            </fieldset>
 
             <input type="hidden" th:field="*{password}"/>
 
-            <form>
+            <fieldset>
                 <label for="name">Name: </label>
                 <input id="name" th:field="*{name}"/>
-            </form>
+            </fieldset>
 
-            <form>
+            <fieldset>
                 <label for="last-name">Last name: </label>
                 <input id="last-name" th:field="*{lastName}"/>
-            </form>
+            </fieldset>
 
             <input type="hidden" th:field="*{department}"/>
 
             <input type="hidden" th:field="*{salary}"/>
 
-            <form>
+            <fieldset>
                 <label for="age">Age: </label>
                 <input id="age" th:field="*{age}"/>
-            </form>
+            </fieldset>
 
-            <form>
+            <fieldset>
                 <label for="email">Email: </label>
                 <input id="email" th:field="*{email}"/>
-            </form>
+            </fieldset>
 
             <input type="hidden" th:field="*{authorities}">
 
