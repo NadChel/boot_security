@@ -38,9 +38,8 @@
                     <td th:text="${user.salary}"></td>
                     <td th:text="${user.age}"></td>
                     <td th:text="${user.email}"></td>
-                    <td th:each="role : ${user.authorities}">
-                        <span th:if="${role.authority} == 'USER'" th:text="U"></span>
-                        <span th:if="${role.authority} == 'ADMIN'" th:text="A"></span>
+                    <td>
+                        <span th:each="role, iter : ${user.authorities}" th:text="${role.authority == 'USER' ? 'U' : (role.authority == 'ADMIN' ? 'A' : '')} + ${iter.last ? '' : ' '}"></span>
                     </td>
                     <td th:text="${user.isEnabled() ? '+' : '-'}"></td>
                     <td>

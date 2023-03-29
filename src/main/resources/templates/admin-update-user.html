@@ -15,45 +15,44 @@
     <h2>Update the user's info</h2>
     <p>For the sake of privacy, you are only allowed to change the user's department and salary.
         If you think this user's personal info needs to be altered, please request them to do so</p>
-  <div class="content-and-buttons">
-  <form class="forms" th:action="@{/save-user}" th:object="${user}" method="post">
-        <input type="hidden" th:field="*{id}">
+    <div class="content-and-buttons">
+        <form class="forms" th:action="@{/save-user}" th:object="${user}" method="post">
+            <input type="hidden" th:field="*{id}">
 
-        <input type="hidden" th:field="*{id}">
+            <input type="hidden" th:field="*{id}">
 
-        <input type="hidden" th:field="*{username}">
+            <input type="hidden" th:field="*{username}">
 
-        <input type="hidden" th:field="*{password}">
+            <input type="hidden" th:field="*{password}">
 
-        <input type="hidden" th:field="*{name}">
+            <input type="hidden" th:field="*{name}">
 
-        <input type="hidden" th:field="*{lastName}">
+            <input type="hidden" th:field="*{lastName}">
 
-        <fieldset>
-            <label for="departments">Department: </label>
-            <select id="departments">
-                <option selected disabled>Select the department</option>
-                <option value="accounting">Accounting</option>
-                <option value="sales">Sales</option>
-                <option value="information technology">IT</option>
-                <option value="human resources">HR</option>
-            </select>
-        </fieldset>
+            <fieldset>
+                <label for="departments">Department: </label>
+                <select id="departments" th:field="*{department}">
+                    <option th:value="accounting">Accounting</option>
+                    <option th:value="sales">Sales</option>
+                    <option th:value="'information technology'">IT</option>
+                    <option th:value="'human resources'">HR</option>
+                </select>
+            </fieldset>
 
-        <fieldset>
-            <label for="salary">Salary: </label>
-            <input id="salary" th:field="*{salary}"/>
-        </fieldset>
+            <fieldset>
+                <label for="salary">Salary: </label>
+                <input id="salary" th:field="*{salary}"/>
+            </fieldset>
 
-        <input type="hidden" th:field="*{age}">
+            <input type="hidden" th:field="*{age}">
 
-        <input type="hidden" th:field="*{email}">
+            <input type="hidden" th:field="*{email}">
 
-        <input type="hidden" th:field="*{authorities}">
+            <input type="hidden" th:field="*{authorities}">
 
-        <input class="main-button" type="submit" value="Submit">
-    </form>
-  </div>
+            <input class="main-button" type="submit" value="Submit">
+        </form>
+    </div>
 </main>
 </body>
 </html>
