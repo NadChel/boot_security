@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.UserRoleService;
 
+import java.util.HashSet;
+import java.util.List;
+
 @Controller
 public class MyController {
     private final UserRoleService service;
@@ -59,7 +62,9 @@ public class MyController {
     @GetMapping("/admin/add-user")
     public String addUser(Model model) {
         model.addAttribute("user", new User())
-                .addAttribute("admin", service.getRoleByName("ADMIN"));
+                .addAttribute("adminRoleSet",
+                        new HashSet<>(List.of(service.getRoleByName("USER"),
+                                service.getRoleByName("ADMIN"))));
         return "add-user";
     }
 
@@ -77,11 +82,11 @@ public class MyController {
 
     @PostMapping("/save-user")
     public String saveUser(@ModelAttribute User user,
-                           @RequestParam(defaultValue = "false") String password,
+                           @RequestParam(defaultValue = "false") String passwordChange,
                            Authentication authentication) {
         System.out.println("User @ModelAttribute: " + user);
 
-        if (Boolean.parseBoolean(password)) {
+        if (Boolean.parseBoolean(passwordChange)) {
             System.out.println("Encoding...");
             encodePassword(user);
             System.out.println("Encoding complete!");

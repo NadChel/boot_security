@@ -14,7 +14,7 @@
 <main>
     <h2>Fill in the forms</h2>
     <div class="content-and-buttons">
-        <form class="forms" th:action="@{/save-user(password=true)}" th:object="${user}" method="post">
+        <form class="forms" th:action="@{/save-user(passwordChange=true)}" th:object="${user}" method="post">
             <input type="hidden" th:field="*{id}">
 
             <fieldset>
@@ -41,8 +41,7 @@
 
             <fieldset>
                 <label for="departments">Department: </label>
-                <select id="departments" required>
-                    <option selected disabled>Select the department</option>
+                <select id="departments" th:field="*{department}" required>
                     <option value="accounting">Accounting</option>
                     <option value="sales">Sales</option>
                     <option value="information technology">IT</option>
@@ -69,7 +68,7 @@
 
             <fieldset>
                 <label for="admin">Admin: </label>
-                <input id="admin" th:field="*{authorities}" type="checkbox" th:value="${admin.authority}" />
+                <input id="admin" th:field="*{authorities}" type="checkbox" th:value="${adminRoleSet}" />
             </fieldset>
 
             <input class='main-button' type="submit" value="Submit">
