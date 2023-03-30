@@ -65,6 +65,8 @@
                 <input id="email" th:field="*{email}" type="text" pattern="[a-z._-]+@[a-z]{1,}\.[a-z]{2,3}" required/>
             </fieldset>
 
+            <input type="hidden" th:field="*{enabled}">
+
             <fieldset>
                 <label for="admin">Admin: </label>
                 <input id="admin" th:field="*{authorities}" type="checkbox" th:value="${admin.authority}" />

@@ -39,6 +39,7 @@ public class User implements UserDetails {
     private Set<Role> authorities;
 
     public User() {
+        this.enabled = 1;
         this.authorities = new HashSet<>(List.of(new Role("USER")));
     }
 

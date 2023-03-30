@@ -77,11 +77,11 @@ public class MyController {
 
     @PostMapping("/save-user")
     public String saveUser(@ModelAttribute User user,
-                           @RequestParam(required = false) boolean password,
+                           @RequestParam(defaultValue = "false") String password,
                            Authentication authentication) {
-        System.out.println("Logged user: " + user);
+        System.out.println("User @ModelAttribute: " + user);
 
-        if (password) {
+        if (Boolean.parseBoolean(password)) {
             System.out.println("Encoding...");
             encodePassword(user);
             System.out.println("Encoding complete!");
