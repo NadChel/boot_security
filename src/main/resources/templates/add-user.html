@@ -68,9 +68,19 @@
             <input type="hidden" th:field="*{enabledByte}">
 
             <fieldset>
-                <label for="admin">Admin: </label>
-                <input id="admin" th:name="authorities" type="checkbox" th:value="${#strings.toString(adminRoleSet)}" />
+                <label for="admin">User: </label>
+                <input id="user" th:name="authorities" type="radio" th:value="*{#strings.toString(authorities)}" checked />
             </fieldset>
+
+            <fieldset>
+                <label for="admin">User + Admin: </label>
+                <input id="admin" th:name="authorities" type="radio" th:value="${#strings.toString(adminRoleSet)}" />
+            </fieldset>
+
+<!--            <fieldset>-->
+<!--                <label for="admin">Admin: </label>-->
+<!--                <input id="admin" th:name="authorities" type="checkbox" th:value="${#strings.toString(adminRoleSet)}" />-->
+<!--            </fieldset>-->
 
             <input class='main-button' type="submit" value="Submit">
         </form>
