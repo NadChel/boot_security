@@ -20,7 +20,11 @@
     <li><span class="label">Lastname: </span><span th:text="*{lastName}"></span></li>
     <li><span class="label">Department: </span><span th:text="*{department}"></span></li>
     <li><span class="label">Salary: </span><span th:text="*{salary}"></span></li>
+    <li><span class="label">Age: </span><span th:text="*{age}"></span></li>
     <li><span class="label">Email: </span><span th:text="*{email}"></span></li>
+    <li><span class="label">Role(s): </span>
+        <span th:each="role, iter : ${user.authorities}" th:text="${role.authority == 'USER' ?
+        'U' : (role.authority == 'ADMIN' ? 'A' : '')} + ${iter.last ? '' : ' '}"></span></li>
 </ol>
 <a th:href="@{/user/update-info}"><button class="main-button">Edit Info</button></a>
 <a th:href="@{/user/update-password}"><button>Change Password</button></a>

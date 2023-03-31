@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Users Database</title>
@@ -44,6 +44,8 @@
                     <td th:text="${user.isEnabled() ? '+' : '-'}"></td>
                     <td>
                         <a th:href="${user.username == loggedUser ? '/user/update-info' : '/admin/update-user?username=' + user.username}"><button>Update</button></a>
+                        <a th:href="${user.isEnabled() ? '/admin/disable-user?username=' + user.username : '/admin/enable-user?username=' + user.username}">
+                            <button th:class="${user.isEnabled() ? 'disable-button' : 'enable-button'}" th:text="${user.isEnabled() ? 'Disable' : 'Enable'}"></button></a>
                         <a th:method="DELETE" th:href="@{/admin/delete-user(username=${user.username})}"><button class="delete-button">Delete</button></a>
                     </td>
                 </tr>

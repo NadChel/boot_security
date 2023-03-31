@@ -44,6 +44,20 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     @Transactional
+    public void disableUserByUsername(String username) {
+        User user = userDao.findByUsername(username);
+        user.setEnabledByte((byte) 0);
+    }
+
+    @Override
+    @Transactional
+    public void enableUserByUsername(String username) {
+        User user = userDao.findByUsername(username);
+        user.setEnabledByte((byte) 1);
+    }
+
+    @Override
+    @Transactional
     public void deleteUserByUsername(String username) {
         userDao.deleteByUsername(username);
     }

@@ -78,3 +78,11 @@ th {
 .delete-button {
     color: red;
 }
+
+.disable-button {
+    color: blue;
+}
+
+.enable-button {
+    color: darkgreen;
+}

@@ -48,7 +48,9 @@ public class MyController {
     @GetMapping("/user/update-password")
     public String updateYourPassword(Model model, Authentication authentication) {
         String username = getUsername(authentication);
-        model.addAttribute("user", service.getByUsername(username));
+        User user = service.getByUsername(username);
+        model.addAttribute("user", user);
+        System.out.println("user in handler: " + user);
         return "user-update-password";
     }
 
@@ -72,6 +74,18 @@ public class MyController {
     public String updateUser(Model model, @RequestParam String username) {
         model.addAttribute("user", service.getByUsername(username));
         return "admin-update-user";
+    }
+
+    @GetMapping("/admin/disable-user")
+    public String disableUser(@RequestParam String username) {
+        service.disableUserByUsername(username);
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/admin/enable-user")
+    public String enableUser(@RequestParam String username) {
+        service.enableUserByUsername(username);
+        return "redirect:/admin";
     }
 
     @DeleteMapping("/admin/delete-user")

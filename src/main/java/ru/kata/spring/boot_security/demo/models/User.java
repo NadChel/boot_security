@@ -30,8 +30,8 @@ public class User implements UserDetails {
     private byte age;
     @Column
     private String email;
-    @Column
-    private byte enabled;
+    @Column(name = "enabled")
+    private byte enabledByte;
     @ManyToMany
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -39,12 +39,12 @@ public class User implements UserDetails {
     private Set<Role> authorities;
 
     public User() {
-        this.enabled = 1;
+        this.enabledByte = 1;
         this.authorities = new HashSet<>(List.of(new Role("USER")));
     }
 
     public User(String username, String password, String name, String lastName,
-                String department, int salary, byte age, String email, byte enabled) {
+                String department, int salary, byte age, String email, byte enabledByte) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -53,7 +53,7 @@ public class User implements UserDetails {
         this.salary = salary;
         this.age = age;
         this.email = email;
-        this.enabled = enabled;
+        this.enabledByte = enabledByte;
     }
 
     public long getId() {
@@ -130,6 +130,14 @@ public class User implements UserDetails {
         this.email = email;
     }
 
+    public byte getEnabledByte() {
+        return enabledByte;
+    }
+
+    public void setEnabledByte(byte enabledByte) {
+        this.enabledByte = enabledByte;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
@@ -151,6 +159,8 @@ public class User implements UserDetails {
                 .add("salary=" + salary)
                 .add("age=" + age)
                 .add("email='" + email + "'")
+                .add("enabled=" + enabledByte)
+                .add("authorities=" + authorities)
                 .toString();
     }
 
@@ -169,7 +179,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return enabled == 1;
+        return enabledByte == 1;
     }
 
     @Override
