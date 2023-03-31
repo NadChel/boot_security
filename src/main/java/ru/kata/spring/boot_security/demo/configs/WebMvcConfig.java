@@ -52,8 +52,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 Set<Role> roleSet = new HashSet<>();
                 String[] roles = text.split("^\\[|\\]$|(?<=\\]),\\s?");
                 for (String roleString : roles) {
+                    if (roleString.length() == 0) continue;
                     String authority =
-                            roleString.substring(roleString.lastIndexOf("=") + 1,
+                            roleString.substring(roleString.lastIndexOf("=") + 2,
                                     roleString.indexOf("]") - 1);
                     roleSet.add(service.getRoleByName(authority));
                 }

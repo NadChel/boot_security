@@ -30,7 +30,7 @@
 
             <fieldset>
                 <label for="name">Name: </label>
-                <input id="name" th:field="*{name}" type="text" minlength="5" maxlength="15" required/>
+                <input id="name" th:field="*{name}" type="text" minlength="2" maxlength="15" required/>
             </fieldset>
 
             <fieldset>
@@ -46,6 +46,7 @@
                     <option value="sales">Sales</option>
                     <option value="information technology">IT</option>
                     <option value="human resources">HR</option>
+                    <option value="board of directors">Board</option>
                 </select>
             </fieldset>
 
@@ -68,7 +69,7 @@
 
             <fieldset>
                 <label for="admin">Admin: </label>
-                <input id="admin" th:field="*{authorities}" type="checkbox" th:value="${adminRoleSet}" />
+                <input id="admin" th:name="authorities" type="checkbox" th:value="${#strings.toString(adminRoleSet)}" />
             </fieldset>
 
             <input class='main-button' type="submit" value="Submit">

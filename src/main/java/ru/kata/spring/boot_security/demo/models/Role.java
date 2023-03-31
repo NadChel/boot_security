@@ -15,10 +15,10 @@ public class Role implements GrantedAuthority {
     private long id;
     @Column(name = "role")
     private String authority;
-    @ManyToMany
-    @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @ManyToMany(mappedBy = "authorities")
+//    @JoinTable(name = "user_role",
+//            joinColumns = @JoinColumn(name = "role_id"),
+//            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> userList;
 
     public Role() {

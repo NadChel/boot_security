@@ -88,7 +88,7 @@ public class MyController {
         return "redirect:/admin";
     }
 
-    @DeleteMapping("/admin/delete-user")
+    @GetMapping("/admin/delete-user")
     public String deleteUser(@RequestParam String username) {
         service.deleteUserByUsername(username);
         return "redirect:/admin";

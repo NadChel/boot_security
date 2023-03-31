@@ -34,8 +34,10 @@ public class User implements UserDetails {
     private byte enabledByte;
     @ManyToMany
     @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id"),
+                            @JoinColumn(name = "username", referencedColumnName = "username")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id"),
+                                @JoinColumn(name = "role", referencedColumnName = "role")})
     private Set<Role> authorities;
 
     public User() {
