@@ -7,6 +7,10 @@ nav {
     text-align: right;
 }
 
+a {
+    display: inline-block;
+}
+
 main {
     width: 60%;
     margin: 0 auto;

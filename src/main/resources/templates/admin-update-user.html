@@ -13,8 +13,8 @@
 </nav>
 <main>
     <h2>Update the user's info</h2>
-    <p>For the sake of privacy, you are only allowed to change the user's department and salary.
-        If you think this user's personal info needs to be altered, please request them to do so</p>
+    <p th:text="'For the sake of privacy, you are only allowed to change the user\'s department ' +
+    'and salary. If you think ' + ${user.name} + '\'s personal info needs to be altered, please request them to do so'"></p>
     <div class="content-and-buttons">
         <form class="forms" th:action="@{/save-user}" th:object="${user}" method="post">
             <input type="hidden" th:field="*{id}">
