@@ -40,6 +40,19 @@ fieldset {
     border: 0;
 }
 
+fieldset.bordered {
+    padding: 0.5em;
+    border: 1px solid black;
+}
+
+legend {
+    font-weight: bold;
+}
+
+input[type=radio] {
+    margin-right: 2.1em;
+}
+
 table {
     border: 3px solid black;
     border-collapse: collapse;

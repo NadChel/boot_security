@@ -67,12 +67,10 @@
 
             <input type="hidden" th:field="*{enabledByte}">
 
-            <fieldset>
+            <fieldset class="bordered">
+                <legend>Privileges</legend>
                 <label for="user">User: </label>
                 <input id="user" th:name="authorities" type="radio" th:value="*{#strings.toString(authorities)}" checked />
-            </fieldset>
-
-            <fieldset>
                 <label for="admin">User + Admin: </label>
                 <input id="admin" th:name="authorities" type="radio" th:value="${#strings.toString(adminRoleSet)}" />
             </fieldset>
