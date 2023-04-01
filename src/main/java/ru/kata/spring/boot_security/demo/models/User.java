@@ -55,8 +55,8 @@ public class User implements UserDetails {
         return authorities;
     }
 
-    public boolean isAdmin() {
-        return authorities.stream().anyMatch(r -> r.getAuthority().equals("ADMIN"));
+    public boolean isBoardMember() {
+        return department.equals("board of directors");
     }
 
     @Override
