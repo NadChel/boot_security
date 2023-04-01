@@ -27,7 +27,7 @@ ol {
     padding-inline-start: 1.2em;
 }
 
-ol li span.label {
+ol li span.label, legend {
     font-weight: bold;
 }
 
@@ -43,10 +43,6 @@ fieldset {
 fieldset.bordered {
     padding: 0.5em;
     border: 1px solid black;
-}
-
-legend {
-    font-weight: bold;
 }
 
 input[type=radio] {

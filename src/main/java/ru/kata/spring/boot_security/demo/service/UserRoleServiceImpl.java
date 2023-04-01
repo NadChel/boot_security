@@ -7,7 +7,9 @@ import ru.kata.spring.boot_security.demo.dao.UserDao;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional(readOnly = true)
@@ -24,11 +26,6 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Override
     public List<User> getAll() {
         return userDao.findAll();
-    }
-
-    @Override
-    public User getById(long id) {
-        return userDao.getById(id);
     }
 
     @Override
@@ -65,5 +62,11 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Override
     public Role getRoleByName(String name) {
         return roleDao.findByAuthority(name);
+    }
+
+    @Override
+    public Set<Role> getAdminRoleSet() {
+        return new HashSet<>(List.of(roleDao.findByAuthority("USER"),
+                roleDao.findByAuthority("ADMIN")));
     }
 }

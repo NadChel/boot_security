@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Users Database</title>
-    <link rel="icon" href="favicon.ico"/>
+    <link rel="icon" href="/favicon.ico"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
-    <link href='users-style-sheet.css' rel='stylesheet'>
+    <link href="/users-style-sheet.css" rel="stylesheet">
 </head>
 <body>
 <nav>
@@ -30,28 +30,37 @@
             </tr>
             </thead>
             <tbody>
-                <tr th:each="user: ${users}">
-                    <td th:text="${user.username}"></td>
-                    <td th:text="${user.name}"></td>
-                    <td th:text="${user.lastName}"></td>
-                    <td th:text="${user.department}"></td>
-                    <td th:text="${user.salary}"></td>
-                    <td th:text="${user.age}"></td>
-                    <td th:text="${user.email}"></td>
-                    <td>
-                        <span th:each="role, iter : ${user.authorities}" th:text="${role.authority == 'USER' ? 'U' : (role.authority == 'ADMIN' ? 'A' : '')} + ${iter.last ? '' : ' '}"></span>
-                    </td>
-                    <td th:text="${user.isEnabled() ? '+' : '-'}"></td>
-                    <td>
-                        <a th:href="${user.username == loggedUser ? '/user/update-info' : '/admin/update-user?username=' + user.username}"><button>Update</button></a>
-                        <a th:href="${user.isEnabled() ? '/admin/disable-user?username=' + user.username : '/admin/enable-user?username=' + user.username}">
-                            <button th:class="${user.isEnabled() ? 'disable-button' : 'enable-button'}" th:text="${user.isEnabled() ? 'Disable' : 'Enable'}"></button></a>
-                        <a th:href="@{/admin/delete-user(username=${user.username})}"><button class="delete-button">Delete</button></a>
-                    </td>
-                </tr>
+            <tr th:each="user: ${users}">
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td th:text="${user.department}"></td>
+                <td th:text="${user.salary}"></td>
+                <td th:text="${user.age}"></td>
+                <td th:text="${user.email}"></td>
+                <td>
+                    <span th:each="role, iter : ${user.authorities}"
+                          th:text="${role.authority == 'USER' ? 'U' : (role.authority == 'ADMIN' ? 'A' : '')} + ${iter.last ? '' : ' '}"></span>
+                </td>
+                <td th:text="${user.isEnabled() ? '+' : '-'}"></td>
+                <td>
+                    <a th:href="${user.username == loggedUser ? '/user/update-info' : '/admin/update-user?username=' + user.username}">
+                        <button>Update</button>
+                    </a>
+                    <a th:href="${user.isEnabled() ? '/admin/disable-user?username=' + user.username : '/admin/enable-user?username=' + user.username}">
+                        <button th:class="${user.isEnabled() ? 'disable-button' : 'enable-button'}"
+                                th:text="${user.isEnabled() ? 'Disable' : 'Enable'}"></button>
+                    </a>
+                    <a th:href="@{/admin/delete-user(username=${user.username})}">
+                        <button class="delete-button">Delete</button>
+                    </a>
+                </td>
+            </tr>
             </tbody>
         </table>
-        <a th:href="@{/admin/add-user}"><button class="main-button">Add</button></a>
+        <a th:href="@{/admin/add-user}">
+            <button class="main-button">Add</button>
+        </a>
     </div>
 </main>
 </body>

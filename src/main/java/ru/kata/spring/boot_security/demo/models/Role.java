@@ -36,7 +36,7 @@ public class Role implements GrantedAuthority {
     }
 
     @Override
-    public String toString() {
+    public String toString() { // StringBuilder внутри StringJoiner лучше ломбоковской конкатенации
         return new StringJoiner(", ", Role.class.getSimpleName() + "[", "]")
                 .add("id=" + id)
                 .add("role='" + authority + "'")

@@ -19,30 +19,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
         this.service = service;
     }
 
-//    @Bean
-//    public Formatter<Set<Role>> roleSetFormatter() {
-//        return new Formatter<>() {
-//            @Override
-//            public Set<Role> parse(String text, Locale locale) {
-//                Set<Role> roleSet = new HashSet<>();
-//                String[] roles = text.split("^\\[|\\]$|(?<=\\]),\\s?");
-//                for (String roleString : roles) {
-//                    String authority =
-//                            roleString.substring(roleString.lastIndexOf("=") + 1,
-//                                    roleString.indexOf("]") - 1);
-//                    roleSet.add(service.getRoleByName(authority));
-//                }
-//                return roleSet;
-//            }
-//
-//            @Override
-//            public String print(Set<Role> object, Locale locale) {
-//                return null;
-//            }
-//
-//        };
-//    }
-
     @Override
     public void addFormatters(FormatterRegistry registry) {
         System.out.println("addFormatters() called");
@@ -50,7 +26,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
             @Override
             public Set<Role> parse(String text, Locale locale) {
                 Set<Role> roleSet = new HashSet<>();
-                String[] roles = text.split("^\\[|\\]$|(?<=\\]),\\s?");
+                String[] roles = text.split("^\\[|]$|(?<=]),\\s?");
                 for (String roleString : roles) {
                     if (roleString.length() == 0) continue;
                     String authority =

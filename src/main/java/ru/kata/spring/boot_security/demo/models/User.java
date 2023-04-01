@@ -39,9 +39,9 @@ public class User implements UserDetails {
     @ManyToMany
     @JoinTable(name = "user_role",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id"),
-                            @JoinColumn(name = "username", referencedColumnName = "username")},
+                    @JoinColumn(name = "username", referencedColumnName = "username")},
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id"),
-                                @JoinColumn(name = "role", referencedColumnName = "role")})
+                    @JoinColumn(name = "role", referencedColumnName = "role")})
     @EqualsAndHashCode.Exclude
     private Set<Role> authorities;
 
@@ -71,6 +71,7 @@ public class User implements UserDetails {
                 .add("authorities=" + authorities)
                 .toString();
     }
+
     @Override
     public boolean isEnabled() {
         return enabledByte == 1;
@@ -78,16 +79,16 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 }

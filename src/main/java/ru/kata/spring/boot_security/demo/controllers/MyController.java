@@ -6,12 +6,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.UserRoleService;
-
-import java.util.HashSet;
-import java.util.List;
 
 @Controller
 public class MyController {
@@ -64,9 +64,7 @@ public class MyController {
     @GetMapping("/admin/add-user")
     public String addUser(Model model) {
         model.addAttribute("user", new User())
-                .addAttribute("adminRoleSet",
-                        new HashSet<>(List.of(service.getRoleByName("USER"),
-                                service.getRoleByName("ADMIN"))));
+                .addAttribute("adminRoleSet", service.getAdminRoleSet());
         return "add-user";
     }
 
@@ -98,16 +96,10 @@ public class MyController {
     public String saveUser(@ModelAttribute User user,
                            @RequestParam(defaultValue = "false") String passwordChange,
                            Authentication authentication) {
-        System.out.println("User @ModelAttribute: " + user);
-
         if (Boolean.parseBoolean(passwordChange)) {
-            System.out.println("Encoding...");
             encodePassword(user);
-            System.out.println("Encoding complete!");
         }
-
         service.save(user);
-
         return isAdmin(authentication) ?
                 "redirect:/admin" :
                 "redirect:/user";

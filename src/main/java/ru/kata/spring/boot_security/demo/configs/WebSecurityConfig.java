@@ -16,8 +16,6 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import javax.sql.DataSource;
 import java.util.Set;
 
-// https://www.baeldung.com/java-config-spring-security
-
 @Configuration
 @Import(WebMvcConfig.class)
 @EnableWebSecurity
@@ -69,33 +67,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public GrantedAuthorityDefaults grantedAuthorityDefaults() {
         return new GrantedAuthorityDefaults(""); // удаление дефолтного префикса "ROLE_"
     }
-
-// ************************************** Изначально *****************************************
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeRequests()
-//                .antMatchers("/", "/index").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin().successHandler(successUserHandler)
-//                .permitAll()
-//                .and()
-//                .logout()
-//                .permitAll();
-//    }
-//
-    // аутентификация inMemory
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("user")
-//                        .password("user")
-//                        .roles("USER")
-//                        .build();
-//
-//        return new InMemoryUserDetailsManager(user);
-//    }
 }
