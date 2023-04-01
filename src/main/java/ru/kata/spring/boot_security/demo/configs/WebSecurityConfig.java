@@ -8,10 +8,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.sql.DataSource;
+import java.util.Set;
 
 // https://www.baeldung.com/java-config-spring-security
 
@@ -20,11 +23,9 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final DataSource dataSource;
-    private final SuccessUserHandler successUserHandler;
 
-    public WebSecurityConfig(DataSource dataSource, SuccessUserHandler successUserHandler) {
+    public WebSecurityConfig(DataSource dataSource) {
         this.dataSource = dataSource;
-        this.successUserHandler = successUserHandler;
     }
 
     @Override
@@ -33,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/**").hasRole("USER")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
-                .and().formLogin().successHandler(successUserHandler)
+                .and().formLogin().successHandler(successHandler())
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/login");
     }
 
@@ -45,6 +46,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "SELECT username, password, enabled FROM users_db.users where username = ?")
                 .authoritiesByUsernameQuery(
                         "SELECT username, role FROM users_db.user_role WHERE username = ?");
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler successHandler() {
+        return (httpServletRequest, httpServletResponse, authentication) -> {
+            Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
+            if (roles.contains("ADMIN")) {
+                httpServletResponse.sendRedirect("/admin");
+            } else {
+                httpServletResponse.sendRedirect("/user");
+            }
+        };
     }
 
     @Bean
