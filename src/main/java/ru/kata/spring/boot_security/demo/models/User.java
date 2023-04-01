@@ -55,6 +55,10 @@ public class User implements UserDetails {
         return authorities;
     }
 
+    public boolean isAdmin() {
+        return authorities.stream().anyMatch(r -> r.getAuthority().equals("ADMIN"));
+    }
+
     @Override
     public String toString() { // StringBuilder внутри StringJoiner лучше ломбоковской конкатенации
         return new StringJoiner(", ", User.class.getSimpleName() + "[", "]")

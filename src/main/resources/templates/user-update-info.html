@@ -13,8 +13,9 @@
 </nav>
 <main>
     <h2>Update your info</h2>
-    <p>Unfortunately, you are not allowed to directly change your department and salary.
-        If you wish to alter this information, consider getting in touch with your superiors</p>
+    <p th:text="'Unfortunately, you are not allowed to directly change your department and salary. ' +
+        'If you wish to alter this information, consider getting in touch with ' +
+        ${user.isAdmin() ? 'the shareholders' : 'your superiors'}"></p>
     <div class="content-and-buttons">
         <form th:action="@{/save-user}" th:object="${user}" method="post">
             <input type="hidden" th:field="*{id}"/>
