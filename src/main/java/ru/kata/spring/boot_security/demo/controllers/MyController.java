@@ -50,7 +50,6 @@ public class MyController {
         String username = getUsername(authentication);
         User user = service.getByUsername(username);
         model.addAttribute("user", user);
-        System.out.println("user in handler: " + user);
         return "user-update-password";
     }
 
