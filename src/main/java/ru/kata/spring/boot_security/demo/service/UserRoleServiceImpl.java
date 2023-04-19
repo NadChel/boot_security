@@ -1,5 +1,9 @@
 package ru.kata.spring.boot_security.demo.service;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.dao.RoleDao;
@@ -68,5 +72,22 @@ public class UserRoleServiceImpl implements UserRoleService {
     public Set<Role> getAdminRoleSet() {
         return new HashSet<>(List.of(roleDao.findByAuthority("USER"),
                 roleDao.findByAuthority("ADMIN")));
+    }
+
+    @Override
+    public String getUsername(Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        return userDetails.getUsername();
+    }
+
+    @Override
+    public boolean isAdmin(Authentication authentication) {
+        return authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"));
+    }
+
+    @Override
+    public void encodePassword(User user, PasswordEncoder passwordEncoder) {
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
     }
 }

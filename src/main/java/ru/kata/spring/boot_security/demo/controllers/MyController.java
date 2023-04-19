@@ -1,8 +1,6 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,28 +24,28 @@ public class MyController {
 
     @GetMapping("/")
     public String home(Authentication authentication) {
-        return isAdmin(authentication) ?
+        return service.isAdmin(authentication) ?
                 "redirect:/admin" :
                 "redirect:/user";
     }
 
     @GetMapping("/user")
     public String userInfo(Model model, Authentication authentication) {
-        String username = getUsername(authentication);
+        String username = service.getUsername(authentication);
         model.addAttribute("user", service.getByUsername(username));
         return "user-info";
     }
 
     @GetMapping("/user/update-info")
     public String updateYourInfo(Model model, Authentication authentication) {
-        String username = getUsername(authentication);
+        String username = service.getUsername(authentication);
         model.addAttribute("user", service.getByUsername(username));
         return "user-update-info";
     }
 
     @GetMapping("/user/update-password")
     public String updateYourPassword(Model model, Authentication authentication) {
-        String username = getUsername(authentication);
+        String username = service.getUsername(authentication);
         User user = service.getByUsername(username);
         model.addAttribute("user", user);
         return "user-update-password";
@@ -56,7 +54,7 @@ public class MyController {
     @GetMapping("/admin")
     public String allUsers(Model model, Authentication authentication) {
         model.addAttribute("users", service.getAll())
-                .addAttribute("loggedUser", getUsername(authentication));
+                .addAttribute("loggedUser", service.getUsername(authentication));
         return "all-users";
     }
 
@@ -96,25 +94,11 @@ public class MyController {
                            @RequestParam(defaultValue = "false") String passwordChange,
                            Authentication authentication) {
         if (Boolean.parseBoolean(passwordChange)) {
-            encodePassword(user);
+            service.encodePassword(user, passwordEncoder);
         }
         service.save(user);
-        return isAdmin(authentication) ?
+        return service.isAdmin(authentication) ?
                 "redirect:/admin" :
                 "redirect:/user";
-    }
-
-    private String getUsername(Authentication authentication) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        return userDetails.getUsername();
-    }
-
-    private boolean isAdmin(Authentication authentication) {
-        return authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"));
-    }
-
-    private void encodePassword(User user) {
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
     }
 }

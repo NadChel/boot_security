@@ -1,5 +1,7 @@
 package ru.kata.spring.boot_security.demo.service;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 
@@ -22,4 +24,10 @@ public interface UserRoleService {
     Role getRoleByName(String name);
 
     Set<Role> getAdminRoleSet();
+
+    String getUsername(Authentication authentication);
+
+    boolean isAdmin(Authentication authentication);
+
+    void encodePassword(User user, PasswordEncoder passwordEncoder);
 }
